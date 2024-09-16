@@ -1,0 +1,30 @@
+// Define a mixin for flexbox layout
+// Parameters:
+// $direction - the direction of the flex container (row, column, etc.)
+// $justify - the justification of the flex items (flex-start, center, space-between, etc.)
+// $align - the alignment of the flex items (stretch, center, flex-start, etc.)
+// $gap - the gap between the flex items
+@mixin flex($direction, $justify, $align, $gap) {
+  display: flex; // Set the display property to flex to enable flexbox layout
+  flex-direction: $direction; // Set the direction of the flex container
+  justify-content: $justify; // Set the justification of the flex items
+  align-items: $align; // Set the alignment of the flex items
+  gap: $gap; // Set the gap between the flex items
+}
+
+// Define a mixin for button styling
+@mixin btn() {
+  width: 100%; // Set the width of the button to 100% of its parent container
+  height: 4rem; // Set the height of the button to 4rem
+  padding: 0 1rem; // Add padding of 0 on the top and bottom, and 1rem on the left and right
+  font-size: clamp(1.6rem, 1.6vw, 1.8rem); // Set the font size using the clamp function for responsiveness
+  border: none; // Remove the default border
+  background-color: $color-green; // Set the background color to a green color defined in the variables
+  cursor: pointer; // Change the cursor to a pointer to indicate the button is clickable
+  color: $color-light; // Set the text color to a light color defined in the variables
+
+  // Define styles for the hover state of the button
+  &:hover {
+    text-decoration: underline; // Underline the text when the button is hovered
+  }
+}

@@ -1,0 +1,37 @@
+@import "../../sass/main.scss";
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 100vh;
+
+  h1 {
+    font-size: clamp(2rem, 10vw, 10rem);
+  }
+
+  p {
+    font-size: clamp(1rem, 5vw, 5rem);
+  }
+
+  a {
+    position: relative;
+    font-size: clamp(1rem, 3vw, 3rem);
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: $color-dark;
+    }
+
+    &:hover:before {
+      width: 100%;
+    }
+  }
+}

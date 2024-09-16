@@ -1,0 +1,124 @@
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  min-height: 100vh;
+  color: #2c3e50;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  max-width: 2600px;
+  margin: 0 auto;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.login {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: calc(100vh - 13rem);
+  background-color: #E0E6ED;
+}
+.login_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-top: 4rem;
+  padding: 2rem;
+  width: 90%;
+  max-width: 30rem;
+  background-color: #fff;
+}
+.login_wrapper_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.login_wrapper_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  font-size: clamp(1.6rem, 1.6vw, 1.6rem);
+  width: 100%;
+}
+.login_wrapper_form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+}
+.login_wrapper_form_group label {
+  font-weight: bold;
+}
+.login_wrapper_form_group input {
+  height: 4rem;
+  padding-left: 1rem;
+}
+.login_wrapper_form_check {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.login_wrapper_form_check input {
+  cursor: pointer;
+}
+.login_wrapper_form_btn {
+  width: 100%;
+  height: 4rem;
+  padding: 0 1rem;
+  font-size: clamp(1.6rem, 1.6vw, 1.8rem);
+  border: none;
+  background-color: #00bc77;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.login_wrapper_form_btn:hover {
+  text-decoration: underline;
+}
+.login_wrapper_form_error {
+  color: #c1241b;
+}
+.login_wrapper_form_spinner {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  border: 0.2rem solid #00bc77;
+  border-top: 0.2rem solid #fff;
+  border-bottom: 0.2rem solid #fff;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}/*# sourceMappingURL=login.css.map */

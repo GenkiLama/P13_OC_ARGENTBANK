@@ -1,0 +1,9 @@
+@import "../../sass/main.scss";
+
+.footer {
+  flex-grow: 1;
+  @include flex(row, center, center, null);
+  border-top: 1px solid gray;
+  height: 5rem;
+  font-size: clamp(1.6rem, 1.6vw, 1.6rem);
+}

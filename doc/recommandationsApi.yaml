@@ -1,0 +1,813 @@
+# Specify the OpenAPI version being used
+openapi: 3.0.3
+
+# Provide metadata about the API
+info:
+  # The title of the API
+  title: Argent Bank API
+  # A brief description of what the API does
+  description: Contains all available API endpoints in this codebase
+  # The version of the API
+  version: 1.0.0
+
+########### SECURITY SCHEMES ###########
+# Define the security schemes used in the API
+components:
+  securitySchemes:
+    # Define a security scheme named 'bearerAuth'
+    bearerAuth:
+      # Specify the type of security scheme
+      type: http
+      # Specify the scheme being used, in this case, bearer tokens
+      scheme: bearer
+      # Indicate the format of the bearer token, which is JWT
+      bearerFormat: JWT
+
+########### SCHEMA ###########
+  # Define reusable schemas for request and response bodies
+  schemas:
+    # Schema for the login request payload
+    Login:
+      # Specify that the schema is an object
+      type: object
+      # Define the properties of the object
+      properties:
+        # Define the 'email' property
+        email:
+          # Specify the type of the property
+          type: string
+          # Provide a description for the property
+          description: user email.
+        # Define the 'password' property
+        password:
+          # Specify the type of the property
+          type: string
+          # Provide a description for the property
+          description: user password.
+  
+    # Schema for the login response payload
+    LoginResponse:
+      # Specify that the schema is an object
+      type: object
+      # Define the properties of the object
+      properties:
+        # Define the 'token' property
+        token:
+          # Specify the type of the property
+          type: string
+    
+    # Schema for the user object
+    User:
+      # Specify that the schema is an object
+      type: object
+      # Define the properties of the object
+      properties:
+        # Define the 'email' property
+        email:
+          # Specify the type of the property
+          type: string
+        # Define the 'password' property
+        password:
+          # Specify the type of the property
+          type: string
+        # Define the 'firstName' property
+        firstName:
+          # Specify the type of the property
+          type: string
+        # Define the 'lastName' property
+        lastName:
+          # Specify the type of the property
+          type: string
+          
+    # Schema for the user profile object
+    UserProfile:
+      # Specify that the schema is an object
+      type: object
+      # Define the properties of the object
+      properties:
+        # Define the 'firstName' property
+        firstName:
+          # Specify the type of the property
+          type: string
+        # Define the 'lastName' property
+        lastName:
+          # Specify the type of the property
+          type: string
+          
+    # Schema for the API response object
+    ApiResponse:
+      # Specify that the schema is an object
+      type: object
+      # Define the properties of the object
+      properties:
+        # Define the 'status' property
+        status:
+          # Specify the type of the property
+          type: number
+        # Define the 'message' property
+        message:
+          # Specify the type of the property
+          type: string
+        # Define the 'body' property
+        body:
+          # Specify that the 'body' property is an object
+          type: object
+          # Define the properties of the 'body' object
+          properties:
+            # Define the 'id' property
+            id:
+              # Specify the type of the property
+              type: string
+            # Define the 'email' property
+            email:
+              # Specify the type of the property
+              type: string
+
+    # Schema for the account object
+    Account:
+      # Specify that the schema is an object
+      type: object
+      # Define the properties of the object
+      properties:
+        # Define the 'id' property
+        id:
+          # Specify the type of the property
+          type: number
+        # Define the 'name' property
+        name:
+          # Specify the type of the property
+          type: string
+        # Define the 'balance' property
+        balance:
+          # Specify the type of the property
+          type: number
+        # Define the 'type' property
+        type:
+          # Specify the type of the property
+          type: string
+    
+    # Schema for the category object
+    Category:
+      # Specify that the schema is an object
+      type: object
+      # Define the properties of the object
+      properties:
+        # Define the 'category' property
+        category:
+          # Specify the type of the property
+          type: string
+    
+    # Schema for the note object
+    Note:
+      # Specify that the schema is an object
+      type: object
+      # Define the properties of the object
+      properties:
+        # Define the 'notes' property
+        notes:
+          # Specify the type of the property
+          type: string
+
+# Define the servers where the API can be accessed
+servers:
+  - # The URL of the server
+    url: http://localhost:3001/api/v1
+  
+# Define the paths (endpoints) of the API
+paths:
+########### LOGIN ###########
+  # Define the /user/login endpoint
+  /user/login:
+    # Specify that this endpoint supports the POST HTTP method
+    post:
+      # Define the security requirements for this endpoint
+      security:
+        - bearerAuth: []
+      # Tags are used to group related endpoints for better organization
+      tags:
+       - User
+      # A brief summary of what this endpoint does
+      summary: Login
+      # A detailed description of the endpoint's purpose
+      description: API for Login
+      # Define the request body that the client must send
+      requestBody:
+        # Description of what the request body is for
+        description: Login Payload
+        # Indicate that the request body is required
+        required: true
+        # Specify the content type and schema of the request body
+        content:
+          application/json:
+            # Reference the schema definition for the Login object in the components section
+            schema:
+              $ref: '#/components/schemas/Login'
+      # Define the possible responses from this endpoint
+      responses:
+        # Define the response for a successful request
+        '200':
+          # Description of the 200 OK response
+          description: Login Successfully.
+          # Specify the content type and schema of the response body
+          content:
+            application/json:
+              # Reference the schema definition for the LoginResponse object in the components section
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        # Define the response for a bad request
+        '400':
+          # Description of the 400 Bad Request response
+          description: Invalid Fields.
+        # Define the response for an internal server error
+        '500':
+          # Description of the 500 Internal Server Error response
+          description: Internal Server Error.
+          
+########### SIGNUP ###########
+  # Define the /user/signup endpoint
+  /user/signup:
+    # Specify that this endpoint supports the POST HTTP method
+    post:
+      # Tags are used to group related endpoints for better organization
+      tags:
+       - User
+      # A brief summary of what this endpoint does
+      summary: Signup
+      # A detailed description of the endpoint's purpose
+      description: API for Signup
+      # Define the request body that the client must send
+      requestBody:
+        # Description of what the request body is for
+        description: Signup Payload
+        # Indicate that the request body is required
+        required: true
+        # Specify the content type and schema of the request body
+        content:
+          application/json:
+            # Reference the schema definition for the User object in the components section
+            schema:
+              $ref: '#/components/schemas/User'
+      # Define the possible responses from this endpoint
+      responses:
+        # Define the response for a successful request
+        '200':
+          # Description of the 200 OK response
+          description: Login Successfully.
+          # Specify the content type and schema of the response body
+          content:
+            application/json:
+              # Reference the schema definition for the ApiResponse object in the components section
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        # Define the response for a bad request
+        '400':
+          # Description of the 400 Bad Request response
+          description: Invalid Fields.
+        # Define the response for an internal server error
+        '500':
+          # Description of the 500 Internal Server Error response
+          description: Internal Server Error.
+########### PROFILE ###########
+# Define the endpoint for user profile operations
+/user/profile:
+  # Specify that this endpoint supports the POST HTTP method
+  post:
+    # Tags are used to group related endpoints for better organization
+    tags:
+      - User
+    # A brief summary of what this endpoint does
+    summary: User Profile API
+    # A detailed description of the endpoint's purpose
+    description: API for fetching a user profile
+    # Define the parameters required by this endpoint
+    parameters:
+      # Define the Authorization header parameter
+      - name: Authorization
+        # Indicate that this parameter is part of the HTTP header
+        in: header
+        # Description of the parameter
+        description: Attach Bearer JWT token
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is a string
+          type: string
+    # Define the possible responses from this endpoint
+    responses:
+      # Define the response for a successful request
+      '200':
+        # Description of the 200 OK response
+        description: User profile retrieved successfully.
+        # Specify the content type and schema of the response body
+        content:
+          application/json:
+            # Reference the schema definition for the ApiResponse object in the components section
+            schema:
+              $ref: '#/components/schemas/ApiResponse'
+      # Define the response for a bad request
+      '400':
+        # Description of the 400 Bad Request response
+        description: Invalid Fields.
+      # Define the response for an internal server error
+      '500':
+        # Description of the 500 Internal Server Error response
+        description: Internal Server Error.
+
+  # Specify that this endpoint supports the PUT HTTP method
+  put:
+    # Tags are used to group related endpoints for better organization
+    tags:
+      - User
+    # A brief summary of what this endpoint does
+    summary: User Profile API
+    # A detailed description of the endpoint's purpose
+    description: API for fetching a user profile
+    # Define the request body that the client must send
+    requestBody:
+      # Description of what the request body is for
+      description: Update user profile attributes
+      # Indicate that the request body is required
+      required: true
+      # Specify the content type and schema of the request body
+      content:
+        application/json:
+          # Reference the schema definition for the UserProfile object in the components section
+          schema:
+            $ref: '#/components/schemas/UserProfile'
+    # Define the parameters required by this endpoint
+    parameters:
+      # Define the Authorization header parameter
+      - name: Authorization
+        # Indicate that this parameter is part of the HTTP header
+        in: header
+        # Description of the parameter
+        description: Attach Bearer JWT token
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is a string
+          type: string
+    # Define the possible responses from this endpoint
+    responses:
+      # Define the response for a successful request
+      '200':
+        # Description of the 200 OK response
+        description: User profile retrieved successfully.
+        # Specify the content type and schema of the response body
+        content:
+          application/json:
+            # Reference the schema definition for the ApiResponse object in the components section
+            schema:
+              $ref: '#/components/schemas/ApiResponse'
+      # Define the response for a bad request
+      '400':
+        # Description of the 400 Bad Request response
+        description: Invalid Fields.
+      # Define the response for an internal server error
+      '500':
+        # Description of the 500 Internal Server Error response
+        description: Internal Server Error. 
+
+########### ACCOUNT ###########
+# Define the endpoint for retrieving all user accounts
+/user/accounts/:
+  # Specify that this endpoint uses the GET HTTP method
+  get:
+    # Tags are used to group related endpoints for better organization
+    tags:
+      - Account
+    # A brief summary of what this endpoint does
+    summary: Accounts
+    # A detailed description of the endpoint's purpose
+    description: Get all accounts
+    # Define the parameters required by this endpoint
+    parameters:
+      # Define the Authorization header parameter
+      - name: Authorization
+        # Indicate that this parameter is part of the HTTP header
+        in: header
+        # Description of the parameter
+        description: Attach Bearer JWT token
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is a string
+          type: string
+    # Define the possible responses from this endpoint
+    responses:
+      # Define the response for a successful request
+      '200':
+        # Description of the 200 OK response
+        description: Returns all user accounts.
+        # Specify the content type and schema of the response body
+        content:
+          application/json:
+            # Reference the schema definition for the Account object in the components section
+            schema:
+              $ref: '#/components/schemas/Account'
+      # Define the response for an unauthorized request
+      '401':
+        # Description of the 401 Unauthorized response
+        description: JWT expired or invalid.
+      # Define the response for an internal server error
+      '500':
+        # Description of the 500 Internal Server Error response
+        description: Internal Server Error.
+
+########### TRANSACTION ###########
+# Define the endpoint for retrieving all transactions from a specific account
+/user/accounts/{AccountId}/transactions:
+  get:
+    tags:
+      - Transaction
+    summary: Return all transactions from account
+    description: Get all Transactions from account
+    parameters:
+      - name: AccountId
+        in: path
+        description: ID of account
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Authorization
+        in: header
+        description: Attach Bearer JWT token
+        required: true
+        schema:
+          type: string
+      - name: currentMonth
+        in: query
+        description: Filter transactions to only include those from the current month
+        required: false
+        schema:
+          type: boolean
+    responses:
+      '200':
+        description: An object array representing each transaction.
+      '400':
+        description: Bad request. Account ID must be an integer.
+      '401':
+        description: JWT expired or invalid.
+      '404':
+        description: Transactions with the specified ID was not found.
+      '500':
+        description: Internal Server Error.
+
+# Define the endpoints for specific transactions within a specific account
+
+/user/accounts/{AccountId}/transactions/{TransactionId}:
+  get:
+    tags:
+      - Transaction
+    summary: Return details of a specific transaction
+    description: Get details of a specific transaction by its ID
+    parameters:
+      - name: AccountId
+        in: path
+        description: ID of account
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: TransactionId
+        in: path
+        description: ID of the transaction
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Authorization
+        in: header
+        description: Attach Bearer JWT token
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: An object representing the transaction details.
+      '400':
+        description: Bad request. Account ID and Transaction ID must be integers.
+      '401':
+        description: JWT expired or invalid.
+      '404':
+        description: Transaction with the specified ID was not found.
+      '500':
+        description: Internal Server Error.
+  put:
+    tags:
+      - Transaction
+    summary: Update a specific transaction
+    description: Update details of a specific transaction by its ID
+    parameters:
+      - name: AccountId
+        in: path
+        description: ID of account
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: TransactionId
+        in: path
+        description: ID of the transaction
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Authorization
+        in: header
+        description: Attach Bearer JWT token
+        required: true
+        schema:
+          type: string
+    requestBody:
+      description: Transaction object that needs to be updated
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              amount:
+                type: number
+                format: float
+              description:
+                type: string
+              date:
+                type: string
+                format: date-time
+    responses:
+      '200':
+        description: Transaction updated successfully.
+      '400':
+        description: Bad request. Account ID and Transaction ID must be integers.
+      '401':
+        description: JWT expired or invalid.
+      '404':
+        description: Transaction with the specified ID was not found.
+      '500':
+        description: Internal Server Error.
+  delete:
+    tags:
+      - Transaction
+    summary: Delete a specific transaction
+    description: Delete a specific transaction by its ID
+    parameters:
+      - name: AccountId
+        in: path
+        description: ID of account
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: TransactionId
+        in: path
+        description: ID of the transaction
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Authorization
+        in: header
+        description: Attach Bearer JWT token
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Transaction deleted successfully.
+      '400':
+        description: Bad request. Account ID and Transaction ID must be integers.
+      '401':
+        description: JWT expired or invalid.
+      '404':
+        description: Transaction with the specified ID was not found.
+      '500':
+        description: Internal Server Error.
+
+/user/accounts/{AccountId}/transactions:
+  post:
+    tags:
+      - Transaction
+    summary: Create a new transaction
+    description: Create a new transaction for a specific account
+    parameters:
+      - name: AccountId
+        in: path
+        description: ID of account
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Authorization
+        in: header
+        description: Attach Bearer JWT token
+        required: true
+        schema:
+          type: string
+    requestBody:
+      description: Transaction object that needs to be created
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              amount:
+                type: number
+                format: float
+              description:
+                type: string
+              date:
+                type: string
+                format: date-time
+    responses:
+      '201':
+        description: Transaction created successfully.
+      '400':
+        description: Bad request. Account ID must be an integer.
+      '401':
+        description: JWT expired or invalid.
+      '500':
+        description: Internal Server Error.
+
+########### CATEGORY ###########
+# Define the endpoint for updating the category of a specific transaction within a specific account
+/user/accounts/{AccountId}/transactions/{TransactionId}/category:
+  # Specify that this endpoint uses the PATCH HTTP method
+  patch:
+    # Tags are used to group related endpoints for better organization
+    tags:
+      - Transaction
+    # A brief summary of what this endpoint does
+    summary: Update transaction
+    # A detailed description of the endpoint's purpose
+    description: Update transaction's category
+    # Define the request body that the client must send
+    requestBody:
+      # Description of what the request body is for
+      description: Update user profile attributes
+      # Indicate that the request body is required
+      required: true
+      # Specify the content type and schema of the request body
+      content:
+        application/json:
+          # Reference the schema definition for the Category object in the components section
+          schema:
+            $ref: '#/components/schemas/Category'
+    # Define the parameters required by this endpoint
+    parameters:
+      # Define the TransactionId path parameter
+      - name: TransactionId
+        # Indicate that this parameter is part of the URL path
+        in: path
+        # Description of the parameter
+        description: ID of transaction
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is an integer
+          type: integer
+          # Specify the format of the integer (64-bit)
+          format: int64
+      # Define the AccountId path parameter
+      - name: AccountId
+        # Indicate that this parameter is part of the URL path
+        in: path
+        # Description of the parameter
+        description: ID of account
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is an integer
+          type: integer
+          # Specify the format of the integer (64-bit)
+          format: int64
+      # Define the Authorization header parameter
+      - name: Authorization
+        # Indicate that this parameter is part of the HTTP header
+        in: header
+        # Description of the parameter
+        description: Attach Bearer JWT token
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is a string
+          type: string
+    # Define the possible responses from this endpoint
+    responses:
+      # Define the response for a successful request
+      '200':
+        # Description of the 200 OK response
+        description: Transaction updated successfully.
+      # Define the response for a bad request
+      '400':
+        # Description of the 400 Bad Request response
+        description: Bad request. Transaction ID must be an integer.
+      # Define the response for an unauthorized request
+      '401':
+        # Description of the 401 Unauthorized response
+        description: JWT expired or invalid.
+      # Define the response for a not found error
+      '404':
+        # Description of the 404 Not Found response
+        description: Transaction with the specified ID was not found.
+      # Define the response for an internal server error
+      '500':
+        # Description of the 500 Internal Server Error response
+        description: Internal Server Error.
+
+########### NOTE ###########          
+# Define the endpoint for creating a note on a specific transaction within a specific account
+/user/accounts/{AccountId}/transactions/{TransactionId}/note:
+  # Specify that this endpoint uses the PATCH HTTP method
+  patch:
+    # Tags are used to group related endpoints for better organization
+    tags:
+      - Note
+    # A brief summary of what this endpoint does
+    summary: Note
+    # A detailed description of the endpoint's purpose
+    description: Create Note
+    # Define the request body that the client must send
+    requestBody:
+      # Description of what the request body is for
+      description: Update user profile attributes
+      # Indicate that the request body is required
+      required: true
+      # Specify the content type and schema of the request body
+      content:
+        application/json:
+          # Reference the schema definition for the Note object in the components section
+          schema:
+            $ref: '#/components/schemas/Note'
+    # Define the parameters required by this endpoint
+    parameters:
+      # Define the TransactionId path parameter
+      - name: TransactionId
+        # Indicate that this parameter is part of the URL path
+        in: path
+        # Description of the parameter
+        description: ID of transaction
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is an integer
+          type: integer
+          # Specify the format of the integer (64-bit)
+          format: int64
+      # Define the AccountId path parameter
+      - name: AccountId
+        # Indicate that this parameter is part of the URL path
+        in: path
+        # Description of the parameter
+        description: ID of account
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is an integer
+          type: integer
+          # Specify the format of the integer (64-bit)
+          format: int64
+      # Define the Authorization header parameter
+      - name: Authorization
+        # Indicate that this parameter is part of the HTTP header
+        in: header
+        # Description of the parameter
+        description: Attach Bearer JWT token
+        # Indicate that this parameter is required
+        required: true
+        # Define the schema for this parameter
+        schema:
+          # Specify that the parameter is a string
+          type: string
+    # Define the possible responses from this endpoint
+    responses:
+      # Define the response for a successful request
+      '200':
+        # Description of the 200 OK response
+        description: Note successfully updated.
+      # Define the response for a bad request
+      '400':
+        # Description of the 400 Bad Request response
+        description: Bad request. Transaction ID must be an integer.
+      # Define the response for an unauthorized request
+      '401':
+        # Description of the 401 Unauthorized response
+        description: JWT expired or invalid.
+      # Define the response for a not found error
+      '404':
+        # Description of the 404 Not Found response
+        description: Transaction with the specified ID was not found.
+      # Define the response for an internal server error
+      '500':
+        # Description of the 500 Internal Server Error response
+        description: Internal Server Error.

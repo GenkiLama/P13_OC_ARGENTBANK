@@ -1,0 +1,61 @@
+// Import the main SCSS file which contains global styles and mixins
+@import "../../sass/main.scss";
+
+// Define styles for the .banner class
+.banner {
+  // Apply a flexbox layout with row direction, flex-end alignment, and center alignment for items
+  // The gap is set to null (no gap)
+  @include flex(row, flex-end, center, null);
+  
+  // Add padding of 0 on the top and bottom, and 10rem on the left and right
+  padding: 0 10rem;
+  
+  // Set the width of the banner to 100% of its parent
+  width: 100%;
+  
+  // Set the height of the banner to 60rem
+  height: 60rem;
+  
+  // Set the background image of the banner to the specified URL
+  background-image: url("../../assets/bank-tree.jpeg");
+  
+  // Position the background image at the top of the banner
+  background-position: top;
+  
+  // Scale the background image to cover the entire banner area
+  background-size: cover;
+  
+  // Prevent the background image from repeating
+  background-repeat: no-repeat;
+
+  // Apply responsive styles for medium screens using the md mixin
+  @include md {
+    // Change the padding to 0 on the top and bottom, and 5rem on the left and right
+    padding: 0 5rem;
+  }
+
+  // Apply responsive styles for small screens using the sm mixin
+  @include sm {
+    // Change the padding to 2rem on all sides
+    padding: 2rem;
+  }
+
+  // Define styles for the .banner_content class
+  &_content {
+    // Apply a flexbox layout with column direction and a gap of 2rem between items
+    @include flex(column, null, null, 2rem);
+    
+    // Add padding of 3rem on all sides
+    padding: 3rem;
+    
+    // Set the font size using the clamp function to ensure responsiveness
+    // The font size will be 1.8rem, scaling with the viewport width
+    font-size: clamp(1.8rem, 1.8vw, 1.8rem);
+    
+    // Set the background color of the content to a light color defined in the variables
+    background-color: $color-light;
+    
+    // Set the width of the content to 40rem
+    width: 40rem;
+  }
+}

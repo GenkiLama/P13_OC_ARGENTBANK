@@ -1,0 +1,75 @@
+@import "../../sass/main.scss";
+
+.login {
+  //flex-direction, justify-content, align-items, gap
+  @include flex(row, center, null, null);
+  height: calc(100vh - 13rem);
+  background-color: $color-blue-dark;
+
+  &_wrapper {
+    @include flex(column, null, center, 2rem);
+    height: fit-content;
+    margin-top: 4rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 30rem;
+    background-color: $color-light;
+
+    &_title {
+      @include flex(column, null, center, 1rem);
+    }
+
+    &_form {
+      @include flex(column, null, center, 2rem);
+      font-size: clamp(1.6rem, 1.6vw, 1.6rem);
+      width: 100%;
+
+      &_group {
+        @include flex(column, null, null, 0.2rem);
+        width: 100%;
+        label {
+          font-weight: bold;
+        }
+        input {
+          height: 4rem;
+          padding-left: 1rem;
+        }
+      }
+      &_check {
+        width: 100%;
+        input {
+          cursor: pointer;
+        }
+        @include flex(row, null, null, 0.5rem);
+      }
+
+      &_btn {
+        @include btn;
+        @include flex(row, center, center, 1rem);
+      }
+
+      &_error {
+        color: $color-error;
+      }
+
+      &_spinner {
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 50%;
+        border: 0.2rem solid $color-green;
+        border-top: 0.2rem solid $color-light;
+        border-bottom: 0.2rem solid $color-light;
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

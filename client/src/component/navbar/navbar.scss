@@ -1,0 +1,76 @@
+// Import the main SCSS file which contains global styles and mixins
+@import "../../sass/main.scss";
+
+// Define styles for the .nav class, which represents the navigation bar
+.nav {
+  // Apply a flexbox layout with row direction, space-between alignment for main axis, center alignment for cross axis, and no gap between items
+  @include flex(row, space-between, center, null);
+
+  // Set the height of the navigation bar to 8rem
+  height: 8rem;
+
+  // Add padding of 0 on the top and bottom, and 4rem on the left and right
+  padding: 0 4rem;
+
+  // Set the text color to a dark color defined in the variables
+  color: $color-dark;
+
+  // Set the font size using the clamp function to ensure responsiveness
+  // The font size will be 2rem, scaling with the viewport width
+  font-size: clamp(2rem, 2vw, 2rem);
+
+  // Apply styles for small screens using the sm mixin
+  @include sm {
+    // Reduce the padding to 0 on the top and bottom, and 2rem on the left and right
+    padding: 0 2rem;
+  }
+
+  // Define styles for anchor tags within the .nav class
+  a {
+    // Set the display to inline-block to allow setting dimensions
+    display: inline-block;
+
+    // Apply a flexbox layout with column direction, center alignment for main axis, and no gap between items
+    @include flex(column, center, null, null);
+
+    // Set the height using the clamp function to ensure responsiveness
+    // The height will be between 20% and 40% of the parent element, scaling with the viewport width
+    height: clamp(20%, 5vw, 40%);
+
+    // Define styles for img tags within anchor tags
+    img {
+      // Set the height of the image to 100% of the parent element
+      height: 100%;
+    }
+  }
+
+  // Define styles for ul tags within the .nav class
+  ul {
+    // Apply a flexbox layout with row direction, center alignment for cross axis, and a gap of 2rem between items
+    @include flex(row, null, center, 2rem);
+
+    // Define styles for li tags within ul tags
+    li {
+      // Define styles for anchor tags within li tags
+      a {
+        // Apply a flexbox layout with row direction, center alignment for cross axis, and a gap of 1rem between items
+        @include flex(row, null, center, 1rem);
+
+        // Define styles for span tags within anchor tags
+        span {
+          // Apply styles for the hover state of span tags
+          &:hover {
+            // Underline the text when hovered
+            text-decoration: underline;
+          }
+
+          // Apply styles for small screens using the sm mixin
+          @include sm {
+            // Hide the span tags on small screens
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

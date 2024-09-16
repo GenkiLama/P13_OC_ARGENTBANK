@@ -1,0 +1,7 @@
+@import "../../sass/main.scss";
+
+.home{
+  //flex-direction, justify-content, align-items, gap
+  @include flex(column, null, null, null);
+  min-height: calc(100vh - 13rem);
+}

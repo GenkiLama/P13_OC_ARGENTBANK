@@ -1,0 +1,33 @@
+@import "../../sass/main.scss";
+
+.account {
+  @include flex(row, space-between, center, null);
+  width: 80%;
+  padding: 2rem;
+  background-color: $color-light;
+
+  @include sm {
+    @include flex(column, null, null, 2rem);
+    text-align: center;
+  }
+
+  &_description {
+    @include flex(column, center, null, 1rem);
+    text-transform: capitalize;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+
+    h3 {
+      font-weight: normal;
+    }
+
+    p:nth-child(2) {
+      font-weight: bold;
+      font-size: clamp(2.5rem, 3.5vw, 4rem);
+    }
+  }
+
+  &_btn {
+    @include btn;
+    width: fit-content;
+  }
+}

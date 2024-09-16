@@ -1,0 +1,28 @@
+@import "../../sass/main.scss";
+
+.profile {
+  //flex-direction, justify-content, align-items, gap
+  @include flex(column, null, center, 4rem);
+  padding: 4rem 0;
+  min-height: calc(100vh - 13rem);
+  background-color: $color-blue-dark;
+
+  &_title {
+    @include flex(column, null, center, 2rem);
+    text-align: center;
+    color: $color-light;
+
+    h1 {
+      font-size: clamp(3rem, 3vw, 3rem);
+    }
+    button {
+      @include btn;
+      width: fit-content;
+    }
+  }
+
+  section{
+    @include flex(column, null, center, 2rem);
+    width: 100%;
+  }
+}

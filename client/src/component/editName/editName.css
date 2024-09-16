@@ -1,0 +1,47 @@
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  min-height: 100vh;
+  color: #2c3e50;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  max-width: 2600px;
+  margin: 0 auto;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.editName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+.editName_group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+.editName_group button[type=submit] {
+  align-self: flex-end;
+}
+.editName_group input {
+  padding: 0.5rem;
+}/*# sourceMappingURL=editName.css.map */
